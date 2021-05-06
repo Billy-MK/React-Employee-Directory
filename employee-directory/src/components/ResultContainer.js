@@ -2,11 +2,13 @@ import React, { Component } from "react";
 import SearchForm from "./SearchForm";
 import EmployeeList from "./EmployeeList";
 import API from "../utils/API";
+import searchFilter from "../utils/search"
 
 class ResultContainer extends Component {
   state = {
     search: "",
-    results: []
+    results: [],
+    employees: []
   };
 
   // When this component mounts, get ten employees
@@ -16,7 +18,7 @@ class ResultContainer extends Component {
 
   getEmployees = () => {
     API.getEmployees()
-      .then(res => this.setState({ results: res.data.results }))
+      .then(res => this.setState({ results: res.data.results, employees: res.data.results }))
       .catch(err => console.log(err));
   };
 
@@ -30,7 +32,12 @@ class ResultContainer extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    // this.searchGiphy(this.state.search);
+    this.setState({ results: searchFilter(this.state.employees, this.state.search) })
+  };
+
+  handleReset = event => {
+    event.preventDefault();
+    this.setState({ results:this.state.employees })
   };
 
   render() {
@@ -40,6 +47,7 @@ class ResultContainer extends Component {
           search={this.state.search}
           handleFormSubmit={this.handleFormSubmit}
           handleInputChange={this.handleInputChange}
+          handleReset={this.handleReset}
         />
         <EmployeeList results={this.state.results} />
       </div>
