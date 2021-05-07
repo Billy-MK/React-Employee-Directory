@@ -2,6 +2,7 @@ import React from "react";
 
 const styles = {
     card: {
+        "borderRadius": "2% 2%",
         width: "18rem",
         margin: "1%",
         "boxShadow": "0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)",
@@ -18,6 +19,9 @@ const styles = {
         "border": "2px solid rgba(255, 255, 255, 1)",
         "WebkitTransform": "translate(-50%, 0%)",
         "transform": "translate(-50%, 0%)",
+    },
+    "card:hover": {
+        "transform":"scale(1.05)"
     }
 }
 
